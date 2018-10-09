@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         // start new activity
+        btn_asynchrone = findViewById(R.id.btn_asynchrone);
         btn_asynchrone.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_compresse = findViewById(R.id.btn_compresse);
         btn_compresse.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_differe = findViewById(R.id.btn_differe);
         btn_differe.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_graphQl = findViewById(R.id.btn_graphQl);
         btn_graphQl.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_serialisation = findViewById(R.id.btn_serialisation);
         btn_serialisation.setOnClickListener(new View.OnClickListener() {
 
             @Override
