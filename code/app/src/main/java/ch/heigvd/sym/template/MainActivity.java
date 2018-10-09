@@ -56,9 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.newActivity.class);
-                intent.putExtra("emailEntered", mail);
-                intent.putExtra("passwordGiven", passwd);
+
+                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.asynchrone.class);
                 int requestCode = 1;
                 startActivityForResult(intent, requestCode);
 
@@ -71,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.compresse.class);
+                int requestCode = 1;
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -79,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.differe.class);
+                int requestCode = 1;
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -87,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.graphQl.class);
+                int requestCode = 1;
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -95,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.serialisation.class);
+                int requestCode = 1;
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
             }
         });
 

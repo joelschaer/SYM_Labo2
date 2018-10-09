@@ -15,5 +15,10 @@
     <string name="labelIEMI">Here is your IEMI :</string>
     <string name="labelPassword">Here is your password :</string>
     <string name="labelEmail">Here is your email :</string>
+    <string name="title_activity_asynchrone">asynchrone</string>
+    <string name="title_activity_differe">differe</string>
+    <string name="title_activity_graph_ql">graphQl</string>
+    <string name="title_activity_serialisation">serialisation</string>
+    <string name="title_activity_compresse">compresse</string>
 
 </resources>

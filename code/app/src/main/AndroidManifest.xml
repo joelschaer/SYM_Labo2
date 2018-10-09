@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,8 +21,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".newActivity"
-            android:label="@string/title_activity_new"
-            android:theme="@style/SymTheme.NoActionBar"></activity>
+            android:name=".asynchrone"
+            android:label="@string/title_activity_asynchrone" />
+        <activity
+            android:name=".differe"
+            android:label="@string/title_activity_differe" />
+        <activity
+            android:name=".graphQl"
+            android:label="@string/title_activity_graph_ql" />
+        <activity
+            android:name=".serialisation"
+            android:label="@string/title_activity_serialisation" />
+        <activity
+            android:name=".compresse"
+            android:label="@string/title_activity_compresse"></activity>
     </application>
+
 </manifest>
