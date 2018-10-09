@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_asynchrone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="asynchrone" />
+
+    <Button
+        android:id="@+id/btn_differe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="differe" />
+
+    <Button
+        android:id="@+id/btn_graphQl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="graphQl" />
+
+    <Button
+        android:id="@+id/btn_serialisation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="serialisation" />
+
+    <Button
+        android:id="@+id/btn_compresse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="compresse" />
+</LinearLayout>

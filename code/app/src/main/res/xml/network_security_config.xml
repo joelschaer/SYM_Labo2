@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Ce fichier permet d'autoriser l'utilisation du protocole
+    HTTP (non sécurisé) sur les versions d'Android >= SDK 28
+    Une série d'exercices sera effectuée en fin de semestre à ce sujet.
+    Cette configuration ne doit pas être utilisée pour un vrai développement,
+    ce fichier est uniquement là pour le laboratoire 2 du cours SYM
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
