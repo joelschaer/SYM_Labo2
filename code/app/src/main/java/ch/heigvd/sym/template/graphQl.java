@@ -1,5 +1,9 @@
 package ch.heigvd.sym.template;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -22,11 +26,13 @@ class Post {
     private String name;
     private String description;
     private String content;
+    private String date;
 
-    public Post(String name, String description, String content){
+    public Post(String name, String description, String content, String date){
         this.name = name;
         this.description = description;
         this.content = content;
+        this.date = date;
     }
 
     public String getContent() {
@@ -40,12 +46,17 @@ class Post {
     public String getName() {
         return name;
     }
+
+    public String getDate() {
+        return date;
+    }
 }
 
 class Auteur {
     private LinkedList<Post> posts = new LinkedList<>();
     private String first_Name;
     private String Second_Name;
+    private String id;
 
     public Auteur(String first_Name, String Second_Name){
         this.first_Name = first_Name;
@@ -57,6 +68,9 @@ class Auteur {
         this.posts = posts;
     }
 
+    public void setId (String id){
+        this.id = id;
+    }
     public LinkedList<Post> getPosts() {
         return posts;
     }
@@ -72,9 +86,13 @@ class Auteur {
     public String getSecond_Name() {
         return Second_Name;
     }
+
+    public String getId() {
+        return id;
+    }
 }
 
-public class graphQl extends Activity implements AdapterView.OnItemSelectedListener {
+public class graphQl extends Activity {
 
     private Spinner spinner = null;
     private final LinkedList<Auteur> auteurs = new LinkedList<>();
@@ -92,18 +110,8 @@ public class graphQl extends Activity implements AdapterView.OnItemSelectedListe
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 myLayout = findViewById(R.id.layoutBox);
                 myLayout.removeAllViews();
-                List<Post> posts = auteurs.get((int)id).getPosts();
-                for (Post post : posts){
-                    TextView name = new TextView(graphQl.this);
-                    name.setText("Name : " +  post.getName());
-                    TextView description = new TextView(graphQl.this);
-                    description.setText("Description : " + post.getDescription());
-                    TextView content = new TextView(graphQl.this);
-                    content.setText("Content : " + post.getContent());
-                    myLayout.addView(name);
-                    myLayout.addView(description);
-                    myLayout.addView(content);
-                }
+                Auteur auteur = auteurs.get((int)id);
+                requestPost(auteur);
             }
 
             @Override
@@ -112,6 +120,10 @@ public class graphQl extends Activity implements AdapterView.OnItemSelectedListe
             }
         });
 
+        requestAuteur();
+    }
+
+    public void requestAuteur(){
         AsyncSendRequest requestAuteur = new AsyncSendRequest() ;
         requestAuteur.addCommunicationEventListener(
                 new CommunicationEventListener(){
@@ -124,22 +136,14 @@ public class graphQl extends Activity implements AdapterView.OnItemSelectedListe
                             JSONArray listAuteurs = data.getJSONArray("allAuthors");
                             for (int i=0; i < listAuteurs.length(); i++)
                             {
-                                    JSONObject oneAuteur = listAuteurs.getJSONObject(i);
-                                    // Pulling items from the array
-                                    String firstName = oneAuteur.getString("first_name");
-                                    String SecondName = oneAuteur.getString("last_name");
-                                    JSONArray listPosts = oneAuteur.getJSONArray("posts");
-                                    Auteur auteur = new Auteur(firstName,SecondName);
-
-                                    for (int j=0; j < listPosts.length(); j++ ){
-                                        JSONObject onePost = listPosts.getJSONObject(j);
-                                        String content = onePost.getString("content");
-                                        String title = onePost.getString("title");
-                                        String description = onePost.getString("description");
-                                        Post post = new Post(title,description,content);
-                                        auteur.addPost(post);
-                                    }
-                                    auteurs.add(auteur);
+                                JSONObject oneAuteur = listAuteurs.getJSONObject(i);
+                                // Pulling items from the array
+                                String id = oneAuteur.getString("id");
+                                String firstName = oneAuteur.getString("first_name");
+                                String SecondName = oneAuteur.getString("last_name");
+                                Auteur auteur = new Auteur(firstName,SecondName);
+                                auteur.setId(id);
+                                auteurs.add(auteur);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -172,17 +176,98 @@ public class graphQl extends Activity implements AdapterView.OnItemSelectedListe
                     }
                 }
         );
-        requestAuteur.sendRequest("{ \"query\": \"{allAuthors{first_name, last_name posts{title, description, content}}}\" }","http://sym.iict.ch/api/graphql");
-
+        requestAuteur.sendRequest("{ \"query\": \"{allAuthors{id, first_name, last_name }}\" }","http://sym.iict.ch/api/graphql");
     }
+    public void requestPost(final Auteur auteur){
+        AsyncSendRequest requestPost = new AsyncSendRequest() ;
+        requestPost.addCommunicationEventListener(
+                new CommunicationEventListener(){
+                    public boolean handleServerResponse(final String response) {
+                        // Code de traitement de la répons (tri etc...)
+                        JSONObject jo = null;
+                        try {
+                            jo = new JSONObject(response);
+                            JSONObject data = jo.getJSONObject("data");
+                            JSONArray listPosts = data.getJSONArray("allPostByAuthor");
+                            for (int i=0; i < listPosts.length(); i++)
+                            {
+                                JSONObject onePost = listPosts.getJSONObject(i);
+                                String title = onePost.getString("title");
+                                String description = onePost.getString("description");
+                                String content = onePost.getString("content");
+                                String date = onePost.getString("date");
+                                Post post = new Post(title, description, content, date);
+                                auteur.addPost(post);
+                            }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                GradientDrawable border = new GradientDrawable();
+                                border.setColor(Color.WHITE); //white background
+                                border.setStroke(2, Color.BLUE); //black border with full opacity
 
+                                List<Post> posts = auteur.getPosts();
+                                for (Post post : posts){
+
+                                    LinearLayout lineraLayout = new LinearLayout(graphQl.this);
+                                    lineraLayout.setPadding(10,20,10,20);
+                                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                        lineraLayout.setBackgroundDrawable(border);
+                                    } else {
+                                        lineraLayout.setBackground(border);
+                                    }
+                                    lineraLayout.setOrientation(LinearLayout.VERTICAL);
+                                    LinearLayout.LayoutParams lineraLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                                    lineraLayout.setLayoutParams(lineraLayoutParams);
+
+                                    TextView labelName = new TextView(graphQl.this);
+                                    labelName.setText(R.string.labelTitle);
+                                    labelName.setTypeface(null, Typeface.BOLD);
+
+                                    TextView labelDescription = new TextView(graphQl.this);
+                                    labelDescription.setText(R.string.labelDescription);
+                                    labelDescription.setTypeface(null, Typeface.BOLD);
+
+                                    TextView labelContent = new TextView(graphQl.this);
+                                    labelContent.setText(R.string.labelContent);
+                                    labelContent.setTypeface(null, Typeface.BOLD);
+
+                                    TextView labelDate = new TextView(graphQl.this);
+                                    labelDate.setText(R.string.labelDate);
+                                    labelDate.setTypeface(null, Typeface.BOLD);
+
+                                    TextView name = new TextView(graphQl.this);
+                                    name.setText(post.getName());
+                                    TextView description = new TextView(graphQl.this);
+                                    description.setText(post.getDescription());
+                                    TextView content = new TextView(graphQl.this);
+                                    content.setText(post.getContent());
+                                    TextView date = new TextView(graphQl.this);
+                                    date.setText(post.getDate());
+                                    lineraLayout.addView(labelName);
+                                    lineraLayout.addView(name);
+                                    lineraLayout.addView(labelDescription);
+                                    lineraLayout.addView(description);
+                                    lineraLayout.addView(labelDate);
+                                    lineraLayout.addView(date);
+                                    lineraLayout.addView(labelContent);
+                                    lineraLayout.addView(content);
+                                    myLayout.addView(lineraLayout);
+                                }
+                            }
+                        });
+
+                        return true;
+                    }
+                }
+        );
+        requestPost.sendRequest("{\n" +
+                "\"query\": \"{allPostByAuthor(authorId:" + auteur.getId() +"){title description content date}}\"}","http://sym.iict.ch/api/graphql");
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_asynchrone">asynchrone</string>
+    <string name="title_activity_differe">differe</string>
+    <string name="title_activity_graph_ql">graphQl</string>
+    <string name="title_activity_serialisation">serialisation</string>
+    <string name="title_activity_compresse">compresse</string>
+    <string name="good">newActivity OK</string>
+</resources>

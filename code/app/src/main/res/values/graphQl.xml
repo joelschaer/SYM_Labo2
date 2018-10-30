@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="labelTitle">Title :</string>
+    <string name="labelDescription">Description :</string>
+    <string name="labelContent">Content :</string>
+    <string name="labelDate">Date :</string>
+    <string name="AuteurPosts">Auteur posts : </string>
+</resources>
