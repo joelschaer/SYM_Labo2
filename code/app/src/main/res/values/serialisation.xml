@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="serialisationTitleForm">Formulaire Json to send :</string>
+    <string name="labelKey1">Key1</string>
+    <string name="labelKey2">Key2</string>
+    <string name="labelValue1">Value1</string>
+    <string name="labelValue2">Value2</string>
+    <string name="serialisationResult">Resultat :</string>
+    <string name="serialisationResultFrom">Result from :</string>
+    <string name="serialisationSendRequest">Send Request</string>
+</resources>

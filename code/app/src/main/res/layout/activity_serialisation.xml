@@ -6,4 +6,169 @@
     android:layout_height="match_parent"
     tools:context=".serialisation">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="14dp"
+            android:text="@string/serialisationTitleForm"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginTop="49dp"
+            android:text="@string/labelKey1" />
+
+        <EditText
+            android:id="@+id/EditKey1"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginTop="79dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/labelKey1" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_alignTop="@+id/textView4"
+            android:text="@string/labelValue1" />
+
+        <EditText
+            android:id="@+id/EditValue1"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_alignTop="@+id/EditKey1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/labelValue1" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginTop="133dp"
+            android:text="@string/labelKey2" />
+
+        <EditText
+            android:id="@+id/EditKey2"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginTop="163dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/labelKey2" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_alignTop="@+id/textView6"
+            android:text="@string/labelValue2" />
+
+        <EditText
+            android:id="@+id/EditValue2"
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_alignTop="@+id/EditKey2"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/labelValue2" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginBottom="247dp"
+            android:text="@string/serialisationResultFrom" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_centerVertical="true"
+            android:text="@string/serialisationResult" />
+
+        <Button
+            android:id="@+id/sendRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginTop="217dp"
+            android:text="@string/serialisationSendRequest" />
+
+        <TextView
+            android:id="@+id/resultFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/textView10"
+            android:layout_marginStart="102dp" />
+
+        <TextView
+            android:id="@+id/resultSerialisationKey1"
+            android:layout_width="108dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginBottom="205dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/resultSerialisation1"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/resultSerialisationKey1"
+            android:layout_toEndOf="@+id/sendRequest"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/resultSerialisationKey2"
+            android:layout_width="108dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginBottom="164dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/resultSerialisation2"
+            android:layout_width="226dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/resultSerialisationKey2"
+            android:layout_toEndOf="@+id/sendRequest"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
