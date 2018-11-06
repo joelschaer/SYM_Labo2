@@ -90,7 +90,7 @@ public class serialisation extends Activity {
                     }
                 }
         );
-        requestAuteur.sendRequest(request,"http://sym.iict.ch/rest/json");
+        requestAuteur.sendRequest(request,"http://sym.iict.ch/rest/json", MedType.JSON);
     }
 
     public void GetDataThenSend(){
