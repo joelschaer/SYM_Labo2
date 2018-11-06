@@ -1,10 +1,6 @@
 package ch.heigvd.sym.template;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,11 +19,14 @@ public class AsyncSendRequest {
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
+    private static final MediaType TEXT
+            = MediaType.parse("text/plain; charset=utf-8");
+
     // Envoie la requete voulue, lance un Thread afin de ne pas bloquer le déroulement du thread principal
-    public void sendRequest(final String request, final String myUrl){
+    public void sendRequest(final String request, final String myUrl, final MedType medType){
         new Thread(){
             public void run(){
-                RequestBody body = RequestBody.create(JSON, request);
+                RequestBody body = RequestBody.create(medType.getMediaType(), request);
                 Request SendingRequest = new Request.Builder().url(myUrl).post(body).build();
                 try {
                     Response response = client.newCall(SendingRequest).execute();

@@ -176,7 +176,7 @@ public class graphQl extends Activity {
                     }
                 }
         );
-        requestAuteur.sendRequest("{ \"query\": \"{allAuthors{id, first_name, last_name }}\" }","http://sym.iict.ch/api/graphql");
+        requestAuteur.sendRequest("{ \"query\": \"{allAuthors{id, first_name, last_name }}\" }","http://sym.iict.ch/api/graphql", MedType.JSON);
     }
     public void requestPost(final Auteur auteur){
         AsyncSendRequest requestPost = new AsyncSendRequest() ;
@@ -268,6 +268,6 @@ public class graphQl extends Activity {
                 }
         );
         requestPost.sendRequest("{\n" +
-                "\"query\": \"{allPostByAuthor(authorId:" + auteur.getId() +"){title description content date}}\"}","http://sym.iict.ch/api/graphql");
+                "\"query\": \"{allPostByAuthor(authorId:" + auteur.getId() +"){title description content date}}\"}","http://sym.iict.ch/api/graphql", MedType.JSON);
     }
 }

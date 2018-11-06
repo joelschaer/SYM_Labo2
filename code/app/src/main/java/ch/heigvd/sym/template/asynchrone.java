@@ -32,6 +32,7 @@ public class asynchrone extends Activity {
         sendText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(textToSend.getText().toString());
                 sendRequest(textToSend.getText().toString());
             }
         });
@@ -69,7 +70,7 @@ public class asynchrone extends Activity {
                     }
                 }
         );
-        requestAuteur.sendRequest(request,"http://sym.iict.ch/rest/txt");
+        requestAuteur.sendRequest(request,"http://sym.iict.ch/rest/txt", MedType.TEXT);
     }
 
 }

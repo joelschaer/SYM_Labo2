@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,10 +20,10 @@ public class differe extends Activity {
 
     private List<String> waitingList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        waitingList = new ArrayList<>();
+        waitingList = Collections.synchronizedList(new ArrayList<String>());
 
         new Thread(new Runnable() {
             public void run() {
@@ -34,10 +35,9 @@ public class differe extends Activity {
                         waitingList.remove(0);
                     }
                     try{
-                        Thread.sleep(5000);
-                    }catch(InterruptedException e){
-                        throw new RuntimeException();
-                    }
+                        Thread.sleep(10000);
+                    }catch(InterruptedException e){ /*do nothin */ }
+
                 }
             }
         }).start();
@@ -53,7 +53,7 @@ public class differe extends Activity {
             @Override
             public void onClick(View v) {
                 waitingList.add(textToSend.getText().toString());
-                textToSend.clearFocus();
+                textToSend.getText().clear();
             }
         });
     }
@@ -75,16 +75,16 @@ public class differe extends Activity {
         requestAuteur.addCommunicationEventListener(
                 new CommunicationEventListener() {
                     public boolean handleServerResponse(final String response) {
-                        // Code de traitement de la répons (tri etc...)
+                        // Code de traitement de la réponse (tri etc...)
+                        System.err.print(response);
                         ArrayList<String> lines = ParseText(response);
-                        System.out.println(response);
-                        final String resultServer = lines.get(3) + "\n" + lines.get(4) + "\nText : " + lines.get(0);
+                        System.err.println(response);
+                        final String resultServer = lines.get(3) + "\n" + lines.get(4) + "\nText : " + lines.get(0) +"\n";
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String srvResponse = resultInfoServer.getText().toString();
-                                srvResponse = srvResponse + resultServer;
-                                resultInfoServer.setText(srvResponse);
+                                String resultText = resultServer + resultInfoServer.getText();
+                                resultInfoServer.setText(resultText);
                             }
                         });
 
@@ -92,6 +92,6 @@ public class differe extends Activity {
                     }
                 }
         );
-        requestAuteur.sendRequest(request, "http://sym.iict.ch/rest/txt");
+        requestAuteur.sendRequest(request, "http://sym.iict.ch/rest/txt", MedType.TEXT);
     }
 }
