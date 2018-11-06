@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="LabelSendText">Text to send : </string>
+    <string name="buttonSendText">Send text : </string>
+    <string name="labelresultText">Result from server : </string>
+</resources>
