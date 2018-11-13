@@ -1,11 +1,5 @@
 # SYM\_Labo2
 
-### serveur applicatif
-
-http://sym.iict.ch/
-http://sym.iict.ch/rest/txt ( avec content type "text/plain" ) : retourne simplement le texte qu'il reçoit.
-http://sym.iict.ch/rest/lorem/20 : retourne simplement du texte
-
 
 
 # Questions :
@@ -17,8 +11,6 @@ http://sym.iict.ch/rest/lorem/20 : retourne simplement du texte
 serveur n’est pas joignable dans l’immédiat ou s’il retourne un code HTTP d’erreur ? Veuillez proposer
 une nouvelle version, mieux adaptée, de ces deux interfaces pour vous aider à illustrer votre réponse.*
 
-<<<<<<< HEAD
-=======
 **Dans le cas ou nous sommes face à une 404, page not found : **
 
 - Avec l'implémentation initiale, si l'adresse du serveur à joindre retourne une 404 aucune erreur ne s'affiche sur l'application et aucune excéption n'est levée. Nous recevrons simplement du contenu HTML correspondant à une page 404
@@ -206,15 +198,13 @@ public void sendRequest(final String request){
     }
 ```
 
->>>>>>> e6101d9996baff37e0749c90787c0c1096610470
-
 
 ### 2 :  Authentification
 
 *Si une authentification par le serveur est requise, peut-on utiliser un protocole asynchrone ? Quelles
 seraient les restrictions ? Peut-on utiliser une transmission différée ?*
 
-La meilleures solution pour répondre à ce genre d'utilisation asynchrone, serait de faire une authentification en amont qui donne une token d'authentification. L'application pourra ensuite présenter ce token à chaque fois qu'elle effectue une requête différée auprès du serveur.A
+La meilleures solution pour répondre à ce genre d'utilisation asynchrone, serait de faire une authentification en amont qui donne une token d'authentification. L'application pourra ensuite présenter ce token à chaque fois qu'elle effectue une requête différée auprès du serveur.
 Avec cette solution on ne requière aucune action utilisateur au moment de l'envoi effectif des requêtes.
 
 ### 3 : Threads concurrents
@@ -223,7 +213,7 @@ Avec cette solution on ne requière aucune action utilisateur au moment de l'env
 préoccupent de la préparation, de l'envoi, de la réception et du traitement des données. Quels
 problèmes cela peut-il poser ?*
 
-En fonction de la rapidité de traitement de chaque étape il se pourrait que l'une d'elle s'exécute plus rapidement et se voit exécutée avec que les précédentes aient terminé le traitement. Il faut alors s'assurer que l'ordre des étapes soient bien respectées.
+En fonction de la rapidité de traitement de chaque étape il se pourrait qu'une étape s'exécute plus vite que les autres. Le traitement des données ne se fait donc pas dans l'ordre et pose problème. Il faut donc s'assurer que l'ordre des étapes soient bien respectées.
 
 ### 4 : Ecriture différée
 
@@ -244,17 +234,17 @@ En effectuant plusieurs connexion on assure que pour chaque requête on obtienne
 Si le fonctionnement de l'application dépend de ces données, il peut alors s'avérer utilie de les envoyer séparément. 
 Ce mode d'envoie est plus adapter si les données à envoyer constituent des gros packets ou que le risque d'interruption est fréquent.
 
-Dans le cas du multiplexage, il est nécessaire de gérer au niveau applicatif la manière dont les requêtes sont combinée entre elle et sous quelle forme les réponses vont revenir. Cela demander un niveau de traitement supplémentaire qui selon les données transmise peut avoir des avantages ou des inconvénient. 
-En effet en combinant les données à envoyer entrer elle afin de les regouper on ne va initier qu'une seule connexion pour tous les packets en attente. Si les packets sont petite on évite ainsi d'ouvrir beacoup de petite connexion et on profite d'une seule connexion pour tout envoyer. 
+Dans le cas du multiplexage, il est nécessaire de gérer au niveau applicatif la manière dont les requêtes sont combinée entre elle et sous quelle forme les réponses vont revenir. Cela demande un niveau de traitement supplémentaire qui, selon les données transmises peut avoir des avantages ou des inconvénients. 
+En combinant les données à envoyer entre elle afin de les regouper, on ne va initier qu'une seule connexion pour tous les packets en attente. Si les packets sont petite on évite ainsi d'ouvrir beacoup de petite connexion et on profite d'une seule connexion pour tout envoyer. 
 Cette solution n'est pas très adaptée si les packets sont gros et que la connexion est lente ou interrompue souvent. Avec une envoi unique mais conséquent, il n'est pas possible de traiter les données qu'une fois l'ensemble du packet reçu Et si le débit est lent ou interrompu souvent ce délait d'envoi peut devenir très long et va détériorer l'expérience de l'utilisateur qui devra attendre longtemps  avant de continuer l'utilisation.
 
 Il est donc important de bien réfléchir au multiple situation qui pourraient de présenter et de trouver des solution adaptées.
 
 
 
-5 : Transmission d’objets
+### 5 : Transmission d’objets
 
-a. *Quel inconvénient y a-t-il à utiliser une infrastructure de type REST/JSON n'offrant aucun
+**a.** *Quel inconvénient y a-t-il à utiliser une infrastructure de type REST/JSON n'offrant aucun
 service de validation (DTD, XML-schéma, WSDL) par rapport à une infrastructure comme SOAP
 offrant ces possibilités ? Est-ce qu’il y a en revanche des avantages que vous pouvez citer ?*
 
@@ -262,9 +252,8 @@ Avec une structure qui n'est pas validée il est plus difficile de savoir si les
 
 Ne pas avoir de système de validation permet cependant une plus grande flexibilité. L'application n'est pas limité à ce qui était prévu dans le système de validation. Elle peut ainsi évoluer plus facilement et tout en gardant une meilleures compatibilité avec les version antérieurs.
 
-b. *L’utilisation d’un mécanisme comme Protocol Buffers est-elle compatible avec une
-architecture basée sur HTTP ? Veuillez discuter des éventuelles avantages ou limitations par
-rapport à un protocole basé sur JSON ou XML ?*
+**b.** *L’utilisation d’un mécanisme comme Protocol Buffers 8 est-elle compatible avec une
+architecture basée sur HTTP ? Veuillez discuter des éventuelles avantages ou limitations par rapport à un protocole basé sur JSON ou XML ?*
 
 Oui, le mécanisme de Protocol Buffers est un système qui permet de sérialiser différents type d'objet. L'envoie ensuite en utilisant http est donc totalement possible.
 Chaque protocol de sérialisation comporte ses avantages et inconvénient:
@@ -295,6 +284,24 @@ Protocol Buffers :
 
 Le choix du protocole va donc dépendre des besoins de l'application. Si celle-ci à besoin d'un système performant mais limité en compatibilité ou plus largement supporté mais beaucoup moins performant. Ou que celui-ci doit impérativement être validé afin d'assurer le respect de la structure de données imposée.
 
-c. *Par rapport à l’API GraphQL mise à disposition pour ce laboratoire. Avez-vous constaté des
+
+
+**c.** *Par rapport à l’API GraphQL mise à disposition pour ce laboratoire. Avez-vous constaté des
 points qui pourraient être améliorés pour une utilisation mobile ? Veuillez en discuter, vous
 pouvez élargir votre réflexion à une problématique plus large que la manipulation effectuée.*
+
+Le premier problème que j'ai rencontré avec GraphQl dans ce laboratoire était le temps de réponse des requêtes, cela était du au fait que je récupérais trop de données d'un coup et aussi à cause du system de temps de réponse mis en place dans ce laboratoire. J'ai donc résolus ce problème en diminuant la taille des requêtes.
+
+Du coup une des choses possible à améliorer est le fait de pouvoir mieux découper les donnnées à récupérer. Par exemple dans le cas ou il y a aurait un très grand nombre d'auteur ou de post, il faudrait pouvoir récupérer les "X" premiers posts.
+
+Ca serait aussi intéressant de pouvoir définir des règles de tri pour les données retournées par graphQl, par exemple trier par nom d'auteur, par id etc...
+
+Dans un cas plus large que ce laboratoire :
+
+La possiblité d'avoir des requêtes retournant le nombre d'objet serait intéressant comme par exemple le nombre d'auteurs.
+
+La possibilité de faire des recherches efficasses sur les données sur différents attributs d'un objet par exemple chercher les auteurs de minimum 30 ans ayant participé au Post "X". Vous allez me dire que on peut déjà faire des recherches comme récupérer les poste d'un auteur mais elles sont limitées. 
+
+La majorité de ces idées ont pour but d'optimiser les requêtes envoyée à GraphQL afin de limiter l'utilisation du réseau (3G payant) et d'accélérer le temps de réponse de l'application.
+
+Bien sûr certaines de ces idées existes déjà pour chez GraphQl ou existeront bientôt, mon expérience se résume à celle de ce laboratoire.
