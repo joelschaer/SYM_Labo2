@@ -235,8 +235,8 @@ Si le fonctionnement de l'application dépend de ces données, il peut alors s'a
 Ce mode d'envoie est plus adapter si les données à envoyer constituent des gros packets ou que le risque d'interruption est fréquent.
 
 Dans le cas du multiplexage, il est nécessaire de gérer au niveau applicatif la manière dont les requêtes sont combinée entre elle et sous quelle forme les réponses vont revenir. Cela demande un niveau de traitement supplémentaire qui, selon les données transmises peut avoir des avantages ou des inconvénients. 
-En combinant les données à envoyer entre elle afin de les regouper, on ne va initier qu'une seule connexion pour tous les packets en attente. Si les packets sont petite on évite ainsi d'ouvrir beacoup de petite connexion et on profite d'une seule connexion pour tout envoyer. 
-Cette solution n'est pas très adaptée si les packets sont gros et que la connexion est lente ou interrompue souvent. Avec une envoi unique mais conséquent, il n'est pas possible de traiter les données qu'une fois l'ensemble du packet reçu Et si le débit est lent ou interrompu souvent ce délait d'envoi peut devenir très long et va détériorer l'expérience de l'utilisateur qui devra attendre longtemps  avant de continuer l'utilisation.
+En combinant les données à envoyer entre elle afin de les regouper, on ne va initier qu'une seule connexion pour tous les packets en attente. Si les packets sont petits on évite ainsi d'ouvrir beaucoup de petites connexions et on profite d'une seule connexion pour tout envoyer. 
+Cette solution n'est pas très adaptée si les packets sont gros et que la connexion est lente ou souvent interrompue . Avec une envoi unique mais conséquent, il n'est pas possible de traiter les données qu'une fois l'ensemble du packet reçu. Si le débit est lent ou souvent interrompu, ce délait d'envoi peut devenir très long et va détériorer l'expérience de l'utilisateur qui devra attendre longtemps  avant de continuer l'utilisation.
 
 Il est donc important de bien réfléchir au multiple situation qui pourraient de présenter et de trouver des solution adaptées.
 
@@ -248,7 +248,7 @@ Il est donc important de bien réfléchir au multiple situation qui pourraient d
 service de validation (DTD, XML-schéma, WSDL) par rapport à une infrastructure comme SOAP
 offrant ces possibilités ? Est-ce qu’il y a en revanche des avantages que vous pouvez citer ?*
 
-Avec une structure qui n'est pas validée il est plus difficile de savoir si les données envoyée corresponde bien à ce qui est attendu. On pourrait se retrouver dans un cas de figure ou les valeur sont manquantes ou corrompues. L'application pourrait donc cracher ou se retrouver dans un état instable. Afin d'éviter ces cas de figurer l'application doit prévoir et valider ce qu'elle reçoit. Cela demande un effort supplémentaire de la part de l'application qui est géré automatiquement avec un système de validation (DTD par exemple) qui nous assurer que ce qu'on reçoit est exactement ce que notre application est capable de gérer.
+Avec une structure qui n'est pas validée, il est plus difficile de savoir si les données envoyées correspondes bien à ce qui est attendu. On pourrait se retrouver dans un cas de figure ou les valeurs sont manquantes ou corrompues. L'application pourrait donc cracher ou se retrouver dans un état instable. Afin d'éviter ces cas de figurer l'application doit prévoir et valider ce qu'elle reçoit. Cela demande un effort supplémentaire de la part de l'application qui est gérée automatiquement avec un système de validation (DTD par exemple) qui nous assurer que ce qu'on reçoit soit exactement ce que notre application est capable de gérer.
 
 Ne pas avoir de système de validation permet cependant une plus grande flexibilité. L'application n'est pas limité à ce qui était prévu dans le système de validation. Elle peut ainsi évoluer plus facilement et tout en gardant une meilleures compatibilité avec les version antérieurs.
 
@@ -256,7 +256,7 @@ Ne pas avoir de système de validation permet cependant une plus grande flexibil
 architecture basée sur HTTP ? Veuillez discuter des éventuelles avantages ou limitations par rapport à un protocole basé sur JSON ou XML ?*
 
 Oui, le mécanisme de Protocol Buffers est un système qui permet de sérialiser différents type d'objet. L'envoie ensuite en utilisant http est donc totalement possible.
-Chaque protocol de sérialisation comporte ses avantages et inconvénient:
+Chaque protocol de sérialisation comporte ses avantages et inconvénients:
 
 Json :
 
@@ -270,7 +270,7 @@ XML :
 - Lisible par un humain
 - Il n'est pas nécessaire de connaître la structure de base pour le lire
 - standard pour SOAP etc.
-- Beaucoup de librairie de traitement. (xsd, xslt, sax, dom, etc)
+- Beaucoup de librairies de traitement. (xsd, xslt, sax, dom, etc)
 - très verbeux
 - Peut facilement être validé avec des DTD ...
 
@@ -278,8 +278,8 @@ Protocol Buffers :
 
 - N'est pas lisible par un humain.
 
-- Donnée très denses (small outputs)
-- Très difficile à décoder si on ne connait pas la structure des données initiale. (les format de données sont ambigus entre eu et nécessite un schéma pour les différencier)
+- Donnée très dense (small outputs)
+- Très difficile à décoder si on ne connait pas la structure des données initiales. (les formats de données sont ambigus entre eu et nécessite un schéma pour les différencier)
 - Processing très rapide des données
 
 Le choix du protocole va donc dépendre des besoins de l'application. Si celle-ci à besoin d'un système performant mais limité en compatibilité ou plus largement supporté mais beaucoup moins performant. Ou que celui-ci doit impérativement être validé afin d'assurer le respect de la structure de données imposée.
