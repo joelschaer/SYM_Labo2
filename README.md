@@ -17,6 +17,8 @@ http://sym.iict.ch/rest/lorem/20 : retourne simplement du texte
 serveur n’est pas joignable dans l’immédiat ou s’il retourne un code HTTP d’erreur ? Veuillez proposer
 une nouvelle version, mieux adaptée, de ces deux interfaces pour vous aider à illustrer votre réponse.*
 
+<<<<<<< HEAD
+=======
 **Dans le cas ou nous sommes face à une 404, page not found : **
 
 - Avec l'implémentation initiale, si l'adresse du serveur à joindre retourne une 404 aucune erreur ne s'affiche sur l'application et aucune excéption n'est levée. Nous recevrons simplement du contenu HTML correspondant à une page 404
@@ -204,6 +206,7 @@ public void sendRequest(final String request){
     }
 ```
 
+>>>>>>> e6101d9996baff37e0749c90787c0c1096610470
 
 
 ### 2 :  Authentification
@@ -249,14 +252,49 @@ Il est donc important de bien réfléchir au multiple situation qui pourraient d
 
 
 
-### 5 : Transmission d’objets
+5 : Transmission d’objets
 
 a. *Quel inconvénient y a-t-il à utiliser une infrastructure de type REST/JSON n'offrant aucun
 service de validation (DTD, XML-schéma, WSDL) par rapport à une infrastructure comme SOAP
 offrant ces possibilités ? Est-ce qu’il y a en revanche des avantages que vous pouvez citer ?*
-b. *L’utilisation d’un mécanisme comme Protocol Buffers 8 est-elle compatible avec une
+
+Avec une structure qui n'est pas validée il est plus difficile de savoir si les données envoyée corresponde bien à ce qui est attendu. On pourrait se retrouver dans un cas de figure ou les valeur sont manquantes ou corrompues. L'application pourrait donc cracher ou se retrouver dans un état instable. Afin d'éviter ces cas de figurer l'application doit prévoir et valider ce qu'elle reçoit. Cela demande un effort supplémentaire de la part de l'application qui est géré automatiquement avec un système de validation (DTD par exemple) qui nous assurer que ce qu'on reçoit est exactement ce que notre application est capable de gérer.
+
+Ne pas avoir de système de validation permet cependant une plus grande flexibilité. L'application n'est pas limité à ce qui était prévu dans le système de validation. Elle peut ainsi évoluer plus facilement et tout en gardant une meilleures compatibilité avec les version antérieurs.
+
+b. *L’utilisation d’un mécanisme comme Protocol Buffers est-elle compatible avec une
 architecture basée sur HTTP ? Veuillez discuter des éventuelles avantages ou limitations par
 rapport à un protocole basé sur JSON ou XML ?*
+
+Oui, le mécanisme de Protocol Buffers est un système qui permet de sérialiser différents type d'objet. L'envoie ensuite en utilisant http est donc totalement possible.
+Chaque protocol de sérialisation comporte ses avantages et inconvénient:
+
+Json :
+
+- Lisible par un humain
+- Il n'est pas nécessaire de connaître la structure de base pour le lire
+- très largement supporté
+- moins verbeux que xml
+
+XML :
+
+- Lisible par un humain
+- Il n'est pas nécessaire de connaître la structure de base pour le lire
+- standard pour SOAP etc.
+- Beaucoup de librairie de traitement. (xsd, xslt, sax, dom, etc)
+- très verbeux
+- Peut facilement être validé avec des DTD ...
+
+Protocol Buffers :
+
+- N'est pas lisible par un humain.
+
+- Donnée très denses (small outputs)
+- Très difficile à décoder si on ne connait pas la structure des données initiale. (les format de données sont ambigus entre eu et nécessite un schéma pour les différencier)
+- Processing très rapide des données
+
+Le choix du protocole va donc dépendre des besoins de l'application. Si celle-ci à besoin d'un système performant mais limité en compatibilité ou plus largement supporté mais beaucoup moins performant. Ou que celui-ci doit impérativement être validé afin d'assurer le respect de la structure de données imposée.
+
 c. *Par rapport à l’API GraphQL mise à disposition pour ce laboratoire. Avez-vous constaté des
 points qui pourraient être améliorés pour une utilisation mobile ? Veuillez en discuter, vous
 pouvez élargir votre réflexion à une problématique plus large que la manipulation effectuée.*
