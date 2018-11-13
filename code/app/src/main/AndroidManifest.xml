@@ -34,7 +34,11 @@
             android:label="@string/title_activity_serialisation" />
         <activity
             android:name=".compresse"
-            android:label="@string/title_activity_compresse"></activity>
+            android:label="@string/title_activity_compresse" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@menu/menu" />
     </application>
 
 </manifest>

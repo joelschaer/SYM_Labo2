@@ -1,0 +1,24 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/asynchrone_menu"
+        app:showAsAction="never"
+        android:title="@string/title_activity_asynchrone" />
+    <item
+        android:id="@+id/differe_menu"
+        app:showAsAction="never"
+        android:title="@string/title_activity_differe" />
+    <item
+        android:id="@+id/graph_ql_menu"
+        app:showAsAction="never"
+        android:title="@string/title_activity_graph_ql" />
+    <item
+        android:id="@+id/serialisation_menu"
+        app:showAsAction="never"
+        android:title="@string/title_activity_serialisation" />
+    <item
+        android:id="@+id/compresse_menu"
+        app:showAsAction="never"
+        android:title="@string/title_activity_compresse" />
+</menu>

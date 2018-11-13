@@ -30,6 +30,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -46,11 +48,64 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_serialisation = null;
     private Button btn_compresse = null;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        int requestCode = 1;
+
+        switch (item.getItemId()) {
+            case R.id.asynchrone_menu:
+                intent = new Intent(MainActivity.this, ch.heigvd.sym.template.asynchrone.class);
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+                return true;
+
+            case R.id.differe_menu:
+                intent = new Intent(MainActivity.this, ch.heigvd.sym.template.differe.class);
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+                return true;
+
+            case R.id.graph_ql_menu:
+                intent = new Intent(MainActivity.this, ch.heigvd.sym.template.graphQl.class);
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+                return true;
+
+            case R.id.serialisation_menu:
+                intent = new Intent(MainActivity.this, ch.heigvd.sym.template.serialisation.class);
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+                return true;
+
+            case R.id.compresse_menu:
+                intent = new Intent(MainActivity.this, ch.heigvd.sym.template.compresse.class);
+                startActivityForResult(intent, requestCode);
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         // start new activity
         btn_asynchrone = findViewById(R.id.btn_asynchrone);
         btn_asynchrone.setOnClickListener(new View.OnClickListener() {
