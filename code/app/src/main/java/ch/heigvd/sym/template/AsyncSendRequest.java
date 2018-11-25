@@ -1,8 +1,10 @@
 package ch.heigvd.sym.template;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -22,12 +24,25 @@ public class AsyncSendRequest {
     private static final MediaType TEXT
             = MediaType.parse("text/plain; charset=utf-8");
 
+    private Map<String,String> headers = new HashMap<>();
+
     // Envoie la requete voulue, lance un Thread afin de ne pas bloquer le déroulement du thread principal
     public void sendRequest(final String request, final String myUrl, final MedType medType){
         new Thread(){
             public void run(){
                 RequestBody body = RequestBody.create(medType.getMediaType(), request);
-                Request SendingRequest = new Request.Builder().url(myUrl).post(body).build();
+                Request.Builder SendingRequestBuilder = new Request.Builder().url(myUrl);
+
+                if(!headers.isEmpty()) {
+
+                    for (Map.Entry<String, String> entry : headers.entrySet()) {
+                        SendingRequestBuilder.addHeader(entry.getKey(), entry.getValue());
+                    }
+
+                }
+
+                Request SendingRequest = SendingRequestBuilder.post(body).build();
+
                 try {
                     Response response = client.newCall(SendingRequest).execute();
 
@@ -48,4 +63,10 @@ public class AsyncSendRequest {
         if(!theListeners.contains(listener))
             theListeners.add(listener);
     }
+
+    public void addHeader(final String propriety, final String value){
+        headers.put(propriety,value);
+    }
+
+
 }

@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.compresse_menu:
-                intent = new Intent(MainActivity.this, ch.heigvd.sym.template.compresse.class);
+                intent = new Intent(MainActivity.this, compress.class);
                 startActivityForResult(intent, requestCode);
 
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, ch.heigvd.sym.template.compresse.class);
+                Intent intent = new Intent(MainActivity.this, compress.class);
                 int requestCode = 1;
                 startActivityForResult(intent, requestCode);
 
