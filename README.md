@@ -305,3 +305,39 @@ La possibilité de faire des recherches efficasses sur les données sur différe
 La majorité de ces idées ont pour but d'optimiser les requêtes envoyée à GraphQL afin de limiter l'utilisation du réseau (3G payant) et d'accélérer le temps de réponse de l'application.
 
 Bien sûr certaines de ces idées existes déjà pour chez GraphQl ou existeront bientôt, mon expérience se résume à celle de ce laboratoire.
+
+###6. Transmission compressée
+
+*Quel gain peut-on constater en moyenne sur des fichiers texte (xml et json sont aussi du texte) en*
+*utilisant de la compression du point 3.4 ? Vous comparerez vos résultats par rapport au gain théorique*
+*d’une compression DEFLATE, vous enverrez aussi plusieurs tailles de contenu pour comparer.*
+
+A l'aide de string pseudo-random, nous trouvons les valeurs suivantes:
+
+```
+Ratio compression for string length 6 : 133.33333333333331
+
+Ratio compression for string length 22 : 95.45454545454545
+
+Ratio compression for string length 37 : 81.08108108108108
+
+Ratio compression for string length 47 : 89.36170212765957
+
+Ratio compression for string length 59 : 77.96610169491525
+
+Ratio compression for string length 232 : 53.44827586206896
+```
+
+On constate donc que le ratio de compression est inversement proportionnel à la longueur du texte (respectivement du fichier) compressé. 
+On obtient (pour de longue stirngs) un ratio meilleur que celui des 75% du DEFLATE. 
+
+(Avec une string de longueur 6 qui se répète, nous trouvons des valeurs bien plus faibles)
+
+```
+Ratio compression for string length 12 : 58.333333333333336
+
+Ratio compression for string length 18 : 38.88888888888889
+
+```
+
+Cela correspond à l'hypothèse logique qui veut que la capacité de compression d'une chaîne de caractères soit limité par l'entropie et le rapport de compression (longueur de la chaîne divisée par le produit du nombre de caractères différents de l'alphabet utilsé et du nombre de caractères).
