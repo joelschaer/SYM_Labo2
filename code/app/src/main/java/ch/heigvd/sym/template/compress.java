@@ -5,15 +5,11 @@ import android.app.Activity;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.Inflater;
@@ -53,36 +49,6 @@ public class compress extends Activity {
         requestAuteur.addHeader("X-Network","CSD");
         requestAuteur.addHeader("X-Content-Encoding","deflate");
 
-        /*
-        byte[] input;
-        //compressing
-        try {
-            input = request.getBytes("UTF-8");
-        } catch(java.io.UnsupportedEncodingException ex) {
-            input = new byte[0];
-            ex.printStackTrace();
-        }
-
-        // Compress the bytes
-        byte[] output = new byte[input.length];
-        Deflater compresser = new Deflater(COMPRESSION_LVL, true);
-        compresser.setInput(input);
-        compresser.finish();
-        final int compressedDataLength = compresser.deflate(output, 0, input.length);
-
-        compresser.end();
-
-        */
-
-        /*
-        Deflater d = new Deflater(Deflater.DEFAULT_COMPRESSION, true);
-        DeflaterOutputStream dout = new DeflaterOutputStream(urlConnection.getOutputStream(), d);
-        byte[] bytes = request.getBytes();
-        dout.write(bytes);
-        dout.close();
-        return bytes.length;
-
-        */
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -136,7 +102,7 @@ public class compress extends Activity {
             int b;
             /* AT THE INTENTION OF THE CORRECTER
             *   as I was not able to understand why the reading of the InflaterInputStream
-            *   was always throwing the following error
+            *   was always throwing the following error:
             *   java.util.zip.ZipException: invalid code lengths set,
             *   I switched the reading of the Inflater to the Stream still deflated.
             *   This allow the application to run and show:
@@ -154,9 +120,6 @@ public class compress extends Activity {
             }
             inflater.close();
             result.close();
-            //   decompresser.setInput(response.getBytes());
-            //    int resultLength = decompresser.inflate(result);
-            //    decompresser.end();
 
             // Decode the bytes into a String
             outputString = new String(result.toByteArray());
