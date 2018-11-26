@@ -47,7 +47,7 @@ public class compress extends Activity {
     public void sendRequest(final String request){
         AsyncSendRequest requestAuteur = new AsyncSendRequest() ;
         requestAuteur.addHeader("X-Network","CSD");
-        requestAuteur.addHeader("X-Content-Encoding","deflate");
+        requestAuteur.addHeader("Content-Encoding","deflate");
 
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -115,7 +115,7 @@ public class compress extends Activity {
             *   If you want to produce the error for yourself,
             *   remplace in.read() by inflater.read() in the while condition below.
             */
-            while ((b = in.read()) != -1 ) {
+            while ((b = inflater.read()) != -1 ) {
                 result.write(b);
             }
             inflater.close();

@@ -33,7 +33,7 @@
             android:name=".serialisation"
             android:label="@string/title_activity_serialisation" />
         <activity
-            android:name=".compresse"
+            android:name=".compress"
             android:label="@string/title_activity_compresse" />
 
         <meta-data
